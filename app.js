@@ -1,35 +1,67 @@
 import * as THREE from 'three';
 
-let camera, scene, renderer;
-let geometry, material, mesh;
 
-init();
+export default class Sketch{
+    constructor(options){
+        this.time = 0;
+        this.container = options.dom;
+        this.scene = new THREE.Scene();
 
-function init() {
+        this.width = this.container.offsetWidth;
+        this.height = this.container.offsetHeight;
+        this.camera = new THREE.PerspectiveCamera( 70, this.width / this.height, 0.01, 10 );
+        this.camera.position.z = 1;
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
-	camera.position.z = 1;
+        this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+        this.renderer.setSize( this.width, this.height );
+        this.container.appendChild( this.renderer.domElement );
+    
+        this.addObjects();
+        this.render();
+    }
+    resize(){
 
-	scene = new THREE.Scene();
-
-	geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-	material = new THREE.MeshNormalMaterial();
-
-	mesh = new THREE.Mesh( geometry, material );
-	scene.add( mesh );
-
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setAnimationLoop( animation );
-	document.body.appendChild( renderer.domElement );
-
+    }
+    addObjects(){
+        this.geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+        this.material = new THREE.MeshNormalMaterial();
+    
+        this.mesh = new THREE.Mesh( this.geometry, this.material );
+        this.scene.add( this.mesh );
+    }
+    render(){
+        this.time+=0.5;
+        this.mesh.rotation.x = this.time / 2000;
+        this.mesh.rotation.y = this.time / 1000;
+    
+        this.renderer.render( this.scene, this.camera );
+        window.requestAnimationFrame(this.render.bind(this));
+    }
 }
 
-function animation( time ) {
 
-	mesh.rotation.x = time / 2000;
-	mesh.rotation.y = time / 1000;
+new Sketch({
+    dom:document.getElementById('container')
+})
 
-	renderer.render( scene, camera );
 
-}
+// let camera, scene, renderer;
+// let geometry, material, mesh;
+
+// init();
+
+// function init() {
+
+
+
+
+
+
+
+// }
+
+// function animation( time ) {
+
+
+
+// }
