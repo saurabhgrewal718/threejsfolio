@@ -75,6 +75,8 @@ float cnoise(vec3 P){
 
 uniform float time;
 varying float vNoise; 
+varying vec2 vUv;
+
 
 void main(){
     vec3 newposition = position;
@@ -82,7 +84,8 @@ void main(){
     float noise = cnoise(vec3(position.x*4.,position.y*4.,time/50.));
     //sin function with varing time
     //newposition.z += 0.1*sin((newposition.x+0.25+time/50.)*2.*PI);
-    newposition.z += 0.1*noise;
+    // newposition.z += 0.1*noise;
     vNoise = noise;
+    vUv = uv;
     gl_Position = projectionMatrix*modelViewMatrix*vec4(newposition,1.0);
 }

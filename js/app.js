@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import fragment from './shaders/fragment.glsl'
-import vertex from './shaders/vertex.glsl'
+import fragment from './shaders/fragment.glsl';
+import vertex from './shaders/vertex.glsl';
+import saurabh from '../img/saurabh.jpg';
 
 export default class Sketch{
     constructor(options){
@@ -40,12 +41,13 @@ export default class Sketch{
         this.camera.updateProjectionMatrix();
     }
     addObjects(){
-        this.geometry = new THREE.PlaneBufferGeometry(3,3,30,30);
+        this.geometry = new THREE.PlaneBufferGeometry(1,1,30,30);
         this.material = new THREE.MeshNormalMaterial();
 
         this.material = new THREE.ShaderMaterial({
             uniforms:{
-                time:{value:0}
+                time:{value:0},
+                saurabhTexture: {value: new THREE.TextureLoader().load(saurabh)},
             }, 
             side:THREE.DoubleSide,
             // wireframe:true,
