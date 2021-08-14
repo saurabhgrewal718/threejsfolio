@@ -9,6 +9,7 @@ export default class Sketch{
 
         this.width = this.container.offsetWidth;
         this.height = this.container.offsetHeight;
+
         this.camera = new THREE.PerspectiveCamera( 70, this.width / this.height, 0.01, 10 );
         this.camera.position.z = 1;
 
@@ -18,12 +19,19 @@ export default class Sketch{
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-    
+        this.resize();
+        this.setUpResize();
         this.addObjects();
         this.render();
     }
+    setUpResize(){
+        window.addEventListener('resize',this.resize.bind(this));
+    }
     resize(){
-
+        this.width = this.container.offsetWidth;
+        this.height = this.container.offsetHeight;
+        this.renderer.setSize(this.width,this.height);
+        this.camera.aspect = this.width/this.height;
     }
     addObjects(){
         this.geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
@@ -47,24 +55,3 @@ new Sketch({
     dom:document.getElementById('container')
 })
 
-
-// let camera, scene, renderer;
-// let geometry, material, mesh;
-
-// init();
-
-// function init() {
-
-
-
-
-
-
-
-// }
-
-// function animation( time ) {
-
-
-
-// }

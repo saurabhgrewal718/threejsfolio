@@ -474,10 +474,19 @@ class Sketch {
         this.renderer.setSize(this.width, this.height);
         this.container.appendChild(this.renderer.domElement);
         this.controls = new _orbitControls.OrbitControls(this.camera, this.renderer.domElement);
+        this.resize();
+        this.setUpResize();
         this.addObjects();
         this.render();
     }
+    setUpResize() {
+        window.addEventListener('resize', this.resize.bind(this));
+    }
     resize() {
+        this.width = this.container.offsetWidth;
+        this.height = this.container.offsetHeight;
+        this.renderer.setSize(this.width, this.height);
+        this.camera.aspect = this.width / this.height;
     }
     addObjects() {
         this.geometry = new _three.BoxGeometry(0.2, 0.2, 0.2);
@@ -496,14 +505,7 @@ class Sketch {
 exports.default = Sketch;
 new Sketch({
     dom: document.getElementById('container')
-}) // let camera, scene, renderer;
- // let geometry, material, mesh;
- // init();
- // function init() {
- // }
- // function animation( time ) {
- // }
-;
+});
 
 },{"three":"1AKvZ","@parcel/transformer-js/src/esmodule-helpers.js":"cctQn","three/examples/jsm/controls/OrbitControls":"fPaua"}],"1AKvZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
