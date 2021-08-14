@@ -40,7 +40,7 @@ export default class Sketch{
         this.camera.updateProjectionMatrix();
     }
     addObjects(){
-        this.geometry = new THREE.PlaneBufferGeometry(0.5,0.5,30,30);
+        this.geometry = new THREE.PlaneBufferGeometry(3,3,30,30);
         this.material = new THREE.MeshNormalMaterial();
 
         this.material = new THREE.ShaderMaterial({
@@ -48,7 +48,7 @@ export default class Sketch{
                 time:{value:0}
             }, 
             side:THREE.DoubleSide,
-            wireframe:true,
+            // wireframe:true,
             fragmentShader:fragment,
             vertexShader:vertex,
         })
